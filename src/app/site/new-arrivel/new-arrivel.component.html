@@ -1,0 +1,13 @@
+<div class="height-seperater"></div>
+<h2>New Arrivel</h2>
+<ul class="product-list">
+    <li *ngFor="let allProduct of allProducts">
+        <figure>
+            <img [src]="allProduct.image">
+            <favorite-icon [isFav]="allProduct.favorite"></favorite-icon>
+        </figure>
+        <h3>{{ allProduct.name }}</h3>
+        <span>{{ allProduct.description | summary }}</span>
+        <p>${{ allProduct.price }}</p>
+    </li>
+</ul>

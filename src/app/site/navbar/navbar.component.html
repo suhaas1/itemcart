@@ -1,0 +1,33 @@
+<nav class="navbar">
+    <section class="navbar-search">
+        <img src="assets/icons/search-24px.svg"> <input type="text" placeholder="Search">
+    </section>
+    <section class="navbar-head">
+        <h1>Item Cart</h1>
+    </section>
+    <section class="navbar-icons">
+        <ul>
+            <li><img src="assets/icons/notifications_none-24px.svg"></li>
+            <li><img src="assets/icons/favorite_border-24px.svg"></li>
+            <li><img src="assets/icons/shopping_cart-24px.svg"></li>
+            <li class="login" (click)="loginRegisterClick()">Login</li>
+            <li class="register" (click)="loginRegisterClick()">Register</li>
+        </ul>
+    </section>
+</nav>
+<nav class="sub-navbar">
+    <ul *ngIf="categories.length > 0">
+        <li *ngFor='let category of categories | slice:0:5; let i=index'>{{ category }}</li>
+        <li (click)="moreOption()">{{ categories.length }} More +</li>
+    </ul>
+    <ul *ngIf="categories.length == 0">
+        <li>No Category Added</li>
+    </ul>
+</nav>
+
+<ul class="scroll-vertical side-menu" [class.active]="sideMenuCheck">
+    <li *ngFor='let category of categories; index as i'>{{ i + 1 }} {{ category }}</li>
+    <div class="side-menu-close" (click)="sideMenuClose()"></div>
+    <div class="side-menu-close-button" (click)="sideMenuClose()"></div>
+</ul>
+<site-login-register [logRegActive]="logRegNav" (change)="logRegChange($event)"></site-login-register>

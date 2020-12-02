@@ -1,0 +1,91 @@
+<section class="login-register-section" [class.active]="logRegActive">
+    <div class="side-menu-close" (click)="loginRegisterClose()"></div>
+    <div class="side-menu-close-button" (click)="loginRegisterClose()"></div>
+    <section [ngSwitch]="viewMode">
+        <form [formGroup]="formLogin" class="w-100 form-design" *ngSwitchCase="'loginView'">
+            <h2 class="head">Login</h2>
+            <div class="each-input-div">
+                <input 
+                    formControlName="userEmail"
+                    type="text" 
+                    placeholder="Username/ Email">
+                <span class="err" *ngIf="formLogin.get('userEmail').touched && formLogin.get('userEmail').invalid">Enter valid Username or Email.</span>
+            </div>
+            <div class="each-input-div">
+                <input 
+                    formControlName="password"
+                    type="password"
+                    placeholder="Password">
+                <span class="err" *ngIf="formLogin.get('password').touched && formLogin.get('password').invalid">Your password is incorrect.</span>
+            </div>
+            <div class="each-input-div">
+                <button type="submit">Login</button>
+                <span class="log-nav"><span (click)="viewMode = 'registerView'">Register</span></span>
+            </div>
+            <!-- <p>{{ loginForm.value | json }}</p> -->
+        </form>
+        <form #registerForm="ngForm" (ngSubmit)="registerSubmit()" class="w-100 form-design" *ngSwitchCase="'registerView'">
+            <h2 class="head">Register</h2>
+            <div class="each-input-div">
+                <input 
+                    type="text" 
+                    required 
+                    placeholder="Username" 
+                    name="regUser" 
+                    id="regUser"
+                    ngModel 
+                    minlength="4"
+                    #regUser="ngModel">
+                <span class="err" *ngIf="regUser.touched && !regUser.valid">Enter valid Username(minimum 4 letters).</span>
+            </div>
+            <div class="each-input-div">
+                <input 
+                    type="email" 
+                    required 
+                    placeholder="Email" 
+                    name="regEmail" 
+                    id="regEmail"
+                    pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
+                    ngModel 
+                    #regEmail="ngModel">
+                <span class="err" *ngIf="regEmail.touched && !regEmail.valid">Enter valid Email.</span>
+            </div>
+            <div class="each-input-div">
+                <input 
+                    type="password"
+                    required
+                    placeholder="Password"
+                    name="regPassword1"
+                    id="regPassword1"
+                    ngModel 
+                    #regPassword1="ngModel">
+                <span class="err" *ngIf="regPassword1.touched && !regPassword1.valid">Your password is incorrect.</span>
+            </div>
+            <div class="each-input-div">
+                <input 
+                    type="password"
+                    required
+                    placeholder="Password"
+                    name="regPassword2"
+                    id="regPassword2"
+                    ngModel 
+                    #regPassword2="ngModel">
+                <span class="err" *ngIf="regPassword2.touched && !regPassword2.valid">Your password is incorrect.</span>
+                <span class="err" *ngIf="regPassword2.touched && regPassword1.value !== regPassword2.value">Password mismatch.</span>
+            </div>
+            <div class="each-input-div">
+                <input 
+                    type="checkbox" 
+                    name="allconditions" 
+                    id="allconditions"
+                    ngModel 
+                    #allconditions="ngModel">Accept all conditions
+                <span class="err" *ngIf="allconditions.touched && allconditions.value == false">Accept all conditions.</span>
+            </div>
+            <div class="each-input-div">
+                <button type="submit" [disabled]="!registerForm.valid">Register</button>
+                <span class="log-nav"><span (click)="viewMode = 'loginView'">Login</span></span>
+            </div>
+        </form>
+    </section>
+</section>

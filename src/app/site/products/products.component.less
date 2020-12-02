@@ -1,0 +1,50 @@
+@import '../../../varibles.less';
+
+.main-section {
+    min-height: calc(100vh - 190px);
+    padding: 50px 0 20px 0;
+    max-width: 1400px;
+    margin: auto;
+    padding-left: 20px;
+    padding-right: 20px;
+    .breadcrumbs {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: flex-end;
+        margin-top: -20px;
+        li {
+            color: @dark-gray-1;
+            font-family: @Avenir500;
+            font-size: 0.9em;
+            display: inline-block;
+            vertical-align: middle;
+            opacity: 0.5;
+            padding-right: 30px;
+            position: relative;
+            &::before {
+                content: '';
+                position: absolute;
+                right: 15px;
+                height: 20px;
+                width: 1px;
+                background-color: @dark-gray-1;
+                transform: rotate(20deg);
+            }
+            &:last-child {
+                opacity: 1;
+                padding-right: 0px;
+                &::before { 
+                    display: none;
+                }
+            }
+            img {
+                display: inline-block;
+                vertical-align: middle;
+                margin-top: -3px;
+                padding-right: 3px;
+            }
+        }
+    }
+}
