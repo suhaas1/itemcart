@@ -9,7 +9,7 @@ export class CustomePipe implements PipeTransform {
     if (!value) {
       return null;
     } else {
-      return value.substr(0, 50) + '...';
+      return value.substr(0, 100) + '...';
     }
   }
 

@@ -10,8 +10,12 @@ export class TopSellerComponent {
 
   allProducts: any;
 
-  constructor(productsService: ProductsService) {
-    this.allProducts = productsService.getProducts();
+  constructor(private productsService: ProductsService) { }
+
+  ngOnInit(): void { 
+    this.productsService.getProducts().subscribe((data) => {
+      this.allProducts = data;
+    })
   }
 
 }

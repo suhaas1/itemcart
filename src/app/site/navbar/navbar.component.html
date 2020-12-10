@@ -1,22 +1,33 @@
 <nav class="navbar">
     <section class="navbar-search">
-        <img src="assets/icons/search-24px.svg"> <input type="text" placeholder="Search">
+        <img src="assets/icons/search-24px.svg"> 
+        <mat-form-field>
+            <mat-label>Search</mat-label>
+            <input matInput type="text" placeholder="Search">
+        </mat-form-field>
     </section>
     <section class="navbar-head">
-        <h1>Item Cart</h1>
+        <h1 routerLink="/">Item Cart</h1>
     </section>
     <section class="navbar-icons">
         <ul>
-            <li><img src="assets/icons/notifications_none-24px.svg"></li>
-            <li><img src="assets/icons/favorite_border-24px.svg"></li>
-            <li><img src="assets/icons/shopping_cart-24px.svg"></li>
-            <li class="login" (click)="loginRegisterClick()">Login</li>
-            <li class="register" (click)="loginRegisterClick()">Register</li>
+            <li><button mat-button><img src="assets/icons/notifications_none-24px.svg"></button></li>
+            <li><button mat-button><img src="assets/icons/favorite_border-24px.svg"></button></li>
+            <li><button mat-button><img src="assets/icons/shopping_cart-24px.svg"></button></li>
+            <li><button mat-raised-button type="submit" (click)="loginRegisterClick()">Login</button></li>
+            <li style="display: none;">
+                <button mat-button [matMenuTriggerFor]="beforeMenu"><mat-icon>person_outline</mat-icon>Username</button>
+                <mat-menu #beforeMenu="matMenu" xPosition="before">
+                    <button mat-menu-item>View Profile</button>
+                    <button mat-menu-item>Logout</button>
+                </mat-menu>
+            </li>
         </ul>
     </section>
 </nav>
 <nav class="sub-navbar">
     <ul *ngIf="categories.length > 0">
+        <li routerLinkActive="active" routerLink="/">All</li>
         <li *ngFor='let category of categories | slice:0:5; let i=index'>{{ category }}</li>
         <li (click)="moreOption()">{{ categories.length }} More +</li>
     </ul>
@@ -26,7 +37,7 @@
 </nav>
 
 <ul class="scroll-vertical side-menu" [class.active]="sideMenuCheck">
-    <li *ngFor='let category of categories; index as i'>{{ i + 1 }} {{ category }}</li>
+    <li *ngFor='let category of categories; index as i'>{{ category }}</li><!--{{ i + 1 }} -->
     <div class="side-menu-close" (click)="sideMenuClose()"></div>
     <div class="side-menu-close-button" (click)="sideMenuClose()"></div>
 </ul>

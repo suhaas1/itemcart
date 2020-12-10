@@ -1,0 +1,58 @@
+<section class="alignCenter" [ngSwitch]="viewMode">
+    <ol class="nav-bar">
+        <li (click)="viewMode = 'viewCategories'">Categories</li>
+        <li (click)="viewMode = 'viewProducts'">Products</li>
+    </ol>
+    <section *ngSwitchCase="'viewCategories'">
+        <div class="w50">
+            <h3>Add Categories</h3><br>
+            <input type="text" placeholder="Add Categories" #categoriesInput><br>
+            <button type="submit" (click)="addCategories(categoriesInput)">Add</button>
+        </div>
+        <h3>All Categories</h3><br>
+        <table>
+            <thead>
+                <tr>
+                    <th>no.</th>
+                    <th>Name</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let category of categories$ | async; let i = index">
+                    <td>{{ i + 1 }}</td>
+                    <td>{{ category }}</td>
+                    <td class="edit">edit</td>
+                    <td class="delete">delete</td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+    <section *ngSwitchCase="'viewProducts'">
+        <div class="w50">
+            <h3>Add Products</h3><br>
+            <input type="text" placeholder="Add Categories"><br>
+            <button type="submit">Add</button>
+        </div>
+        <h3>All Products</h3><br>
+        <table>
+            <thead>
+                <tr>
+                    <th>no.</th>
+                    <th>Name</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let category of categories; let i = index">
+                    <td>{{ i + 1 }}</td>
+                    <td>{{ category }}</td>
+                    <td class="edit">edit</td>
+                    <td class="delete">delete</td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+</section>

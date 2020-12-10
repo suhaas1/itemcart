@@ -1,16 +1,20 @@
 import { ProductsService } from './../../common/services/products.service';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'site-new-arrivel',
   templateUrl: './new-arrivel.component.html',
   styleUrls: ['./new-arrivel.component.less']
 })
-export class NewArrivelComponent {
+export class NewArrivelComponent implements OnInit {
   allProducts: any;
 
-  constructor(productsService: ProductsService) {
-    this.allProducts = productsService.getProducts();
+  constructor(private productsService: ProductsService) { }
+
+  ngOnInit(): void { 
+    this.productsService.getProducts().subscribe((data) => {
+      this.allProducts = data;
+    })
   }
 
 }

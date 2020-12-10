@@ -7,12 +7,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./navbar.component.less']
 })
 export class NavbarComponent implements OnInit {
-  
-  //categories: any;
   categories = [];
-  constructor(private categoriesService: CategoriesService) {
-    
-  }
+  constructor(private categoriesService: CategoriesService) {}
 
   ngOnInit(): void { 
     //categories data

@@ -4,87 +4,59 @@
     <section [ngSwitch]="viewMode">
         <form [formGroup]="formLogin" class="w-100 form-design" *ngSwitchCase="'loginView'">
             <h2 class="head">Login</h2>
+                <mat-form-field class="example-full-width">
+                    <mat-label>Username/ Email</mat-label>
+                    <input matInput formControlName="userEmail" type="text" placeholder="Username/ Email">
+                    <span class="err" *ngIf="formLogin.get('userEmail').touched && formLogin.get('userEmail').invalid">Enter valid Username or Email.</span>
+                </mat-form-field>
+                <mat-form-field class="example-full-width">
+                    <mat-label>Password</mat-label>
+                    <input matInput [type]="hide ? 'text' : 'password'" formControlName="password" placeholder="Password">
+                    <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                    <mat-icon>{{hide ? 'visibility' : 'visibility_off'}}</mat-icon>
+                    </button>
+                    <span class="err" *ngIf="formLogin.get('password').touched && formLogin.get('password').invalid">Your password is incorrect.</span>
+                </mat-form-field>
             <div class="each-input-div">
-                <input 
-                    formControlName="userEmail"
-                    type="text" 
-                    placeholder="Username/ Email">
-                <span class="err" *ngIf="formLogin.get('userEmail').touched && formLogin.get('userEmail').invalid">Enter valid Username or Email.</span>
+                <button type="submit" [disabled]="!formLogin.valid" mat-raised-button color="accent">Login</button>
+                <button mat-button color="accent" (click)="viewMode = 'registerView'">Register</button>
             </div>
-            <div class="each-input-div">
-                <input 
-                    formControlName="password"
-                    type="password"
-                    placeholder="Password">
-                <span class="err" *ngIf="formLogin.get('password').touched && formLogin.get('password').invalid">Your password is incorrect.</span>
-            </div>
-            <div class="each-input-div">
-                <button type="submit">Login</button>
-                <span class="log-nav"><span (click)="viewMode = 'registerView'">Register</span></span>
-            </div>
-            <!-- <p>{{ loginForm.value | json }}</p> -->
         </form>
         <form #registerForm="ngForm" (ngSubmit)="registerSubmit()" class="w-100 form-design" *ngSwitchCase="'registerView'">
             <h2 class="head">Register</h2>
-            <div class="each-input-div">
-                <input 
-                    type="text" 
-                    required 
-                    placeholder="Username" 
-                    name="regUser" 
-                    id="regUser"
-                    ngModel 
-                    minlength="4"
-                    #regUser="ngModel">
+            <mat-form-field class="example-full-width">
+                <mat-label>Username</mat-label>
+                <input matInput type="text" required placeholder="Username" name="regUser" id="regUser" ngModel minlength="4" #regUser="ngModel" pattern=".*\S+.*">
                 <span class="err" *ngIf="regUser.touched && !regUser.valid">Enter valid Username(minimum 4 letters).</span>
-            </div>
-            <div class="each-input-div">
-                <input 
-                    type="email" 
-                    required 
-                    placeholder="Email" 
-                    name="regEmail" 
-                    id="regEmail"
-                    pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
-                    ngModel 
-                    #regEmail="ngModel">
-                <span class="err" *ngIf="regEmail.touched && !regEmail.valid">Enter valid Email.</span>
-            </div>
-            <div class="each-input-div">
-                <input 
-                    type="password"
-                    required
-                    placeholder="Password"
-                    name="regPassword1"
-                    id="regPassword1"
-                    ngModel 
-                    #regPassword1="ngModel">
+            </mat-form-field>
+            <mat-form-field class="example-full-width">
+                <mat-label>Email</mat-label>
+                <input matInput type="email" required placeholder="Email" name="regEmail" id="regEmail" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" ngModel #regEmail="ngModel">
+                <span class="err" *ngIf="regEmail.touched && !regEmail.valid">Please enter a valid email address</span>
+            </mat-form-field>
+            <mat-form-field class="example-full-width">
+                <mat-label>Password</mat-label>
+                <input matInput [type]="hide ? 'text' : 'password'" required placeholder="Password" name="regPassword1" id="regPassword1" ngModel #regPassword1="ngModel" pattern=".*\S+.*">
+                <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                <mat-icon>{{hide ? 'visibility' : 'visibility_off'}}</mat-icon>
+                </button>
                 <span class="err" *ngIf="regPassword1.touched && !regPassword1.valid">Your password is incorrect.</span>
-            </div>
-            <div class="each-input-div">
-                <input 
-                    type="password"
-                    required
-                    placeholder="Password"
-                    name="regPassword2"
-                    id="regPassword2"
-                    ngModel 
-                    #regPassword2="ngModel">
-                <span class="err" *ngIf="regPassword2.touched && !regPassword2.valid">Your password is incorrect.</span>
+            </mat-form-field>
+            <mat-form-field class="example-full-width">
+                <mat-label>Confirm Password</mat-label>
+                <input matInput [type]="hide ? 'text' : 'password'" required placeholder="Password" name="regPassword2" id="regPassword2" ngModel #regPassword2="ngModel" pattern=".*\S+.*">
+                <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                <mat-icon>{{hide ? 'visibility' : 'visibility_off'}}</mat-icon>
+                </button>
                 <span class="err" *ngIf="regPassword2.touched && regPassword1.value !== regPassword2.value">Password mismatch.</span>
-            </div>
+            </mat-form-field>
             <div class="each-input-div">
-                <input 
-                    type="checkbox" 
-                    name="allconditions" 
-                    id="allconditions"
-                    ngModel 
-                    #allconditions="ngModel">Accept all conditions
+                <mat-checkbox name="allconditions" id="allconditions" ngModel #allconditions="ngModel">Accept all conditions</mat-checkbox>
                 <span class="err" *ngIf="allconditions.touched && allconditions.value == false">Accept all conditions.</span>
             </div>
             <div class="each-input-div">
-                <button type="submit" [disabled]="!registerForm.valid">Register</button>
-                <span class="log-nav"><span (click)="viewMode = 'loginView'">Login</span></span>
+                <button type="submit" [disabled]="!registerForm.valid" mat-raised-button color="accent">Register</button>
+                <button mat-button color="accent" (click)="viewMode = 'loginView'">Login</button>
             </div>
         </form>
     </section>
